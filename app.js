@@ -1,11 +1,18 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const mongoose = require("mongoose");
 
-// Set EJS as the templating engine
+mongoose
+  .connect(
+    "mongodb+srv://temo:iliauni@iliauni.sp7146r.mongodb.net/anitkhelidze?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+
 app.set("view engine", "ejs");
 
-// Define routes
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
@@ -22,7 +29,6 @@ app.get("/chat", (req, res) => {
   res.render("chat");
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
