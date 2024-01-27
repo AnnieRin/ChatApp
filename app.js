@@ -9,10 +9,10 @@ const port = 3000;
 
 // MongoDB Connection
 mongoose
-  .connect(
-    "mongodb+srv://temo:iliauni@iliauni.sp7146r.mongodb.net/anitkhelidze?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect("Mongo Connection string", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
