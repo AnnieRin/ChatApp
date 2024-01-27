@@ -2,14 +2,36 @@
 <html>
   <head>
     <title>Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const socket = io();
+
+        document
+          .getElementById("send-message")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const messageInput = document.getElementById("message-input");
+            const message = messageInput.value;
+            socket.emit("chat message", message);
+            messageInput.value = "";
+          });
+
+        socket.on("chat message", function (msg) {
+          const messageElement = document.createElement("div");
+          messageElement.textContent = msg;
+          document
+            .getElementById("message-container")
+            .appendChild(messageElement);
+        });
+      });
+    </script>
   </head>
   <body>
     <h2>Chat Room</h2>
-    <div id="message-container">
-      <!-- Messages will be displayed here -->
-    </div>
-    <form action="/send-message" method="POST">
-      <input type="text" name="message" required />
+    <div id="message-container"></div>
+    <form id="send-message">
+      <input type="text" id="message-input" required />
       <button type="submit">Send</button>
     </form>
   </body>
